@@ -1,0 +1,25 @@
+.Footer {
+  width: 100%;
+  background-color: rgb(136, 143, 135);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  gap: 10px;
+  box-shadow: 0px 0px 5px black;
+}
+
+.logoContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: center;
+}
+
+.logoContainer .logo {
+  width: 30px;
+  filter: invert(1);
+}

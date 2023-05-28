@@ -1,0 +1,13 @@
+.HeadContainer {
+  width: 100%;
+}
+
+.HeadText {
+  margin: 20px;
+  text-decoration: none;
+  color: black;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+}

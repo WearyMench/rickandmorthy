@@ -1,0 +1,25 @@
+.Not_Found {
+  width: 80%;
+  margin: 40px auto;
+  border: 5px dashed red;
+  color: brown;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.Not_Found h1 {
+  margin-bottom: 15px;
+}
+
+.backButton {
+  text-decoration: none;
+  background-color: brown;
+  border-radius: 10px;
+  padding: 8px;
+  color: white;
+}
+
+.backButton:hover {
+  box-shadow: 0px 0px 2px white inset;
+}

@@ -1,0 +1,11 @@
+.Nav {
+  width: 100%;
+  height: 15%;
+  background-color: rgba(47, 141, 47, 0.3);
+}
+
+.Nav .logo {
+  width: 50px;
+  margin-left: 5px;
+  filter: invert(1);
+}
