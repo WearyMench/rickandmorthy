@@ -72,3 +72,15 @@
     }
   }
 }
+
+@media screen and (max-height: 350px) {
+  .header {
+    height: 100vh;
+  }
+}
+
+@media screen and (max-height: 200px) {
+  .header {
+    height: 160vh;
+  }
+}
