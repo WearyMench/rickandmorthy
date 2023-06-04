@@ -1,16 +1,22 @@
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+
 import "../styles/cards.css";
 
 function CharacterCards({ data }) {
   return (
-    <div className="cardContainer">
+    <>
       {data.results.map((data, idx) => (
         <div key={idx} className="card">
           <div>
-            <img src={data.image} alt={data.name} className="cardImage" />
+            <Link to={`/characters/${data.id}`}>
+              <img src={data.image} alt={data.name} className="cardImage" />
+            </Link>
           </div>
           <div className="cardDescription">
-            <h3>{data.name}</h3>
+            <Link to={`/characters/${data.id}`}>
+              <h3>{data.name}</h3>
+            </Link>
             <p>
               {data.status === "Alive"
                 ? "🟢"
@@ -26,7 +32,7 @@ function CharacterCards({ data }) {
           </div>
         </div>
       ))}
-    </div>
+    </>
   );
 }
 

@@ -1,0 +1,54 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+  margin: 10px;
+}
+
+.charactersTitle {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.characterForm {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.characterForm input[type="text"] {
+  width: 85%;
+  height: 20px;
+}
+
+.characterForm input[type="submit"] {
+  width: 10%;
+  height: 25px;
+}
+
+.arrow-div {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  color: black;
+}
+
+.arrow {
+  margin: 5px;
+  border-radius: 10px;
+  border: none;
+  background: none;
+  transition: all 300ms;
+  color: black;
+}
+
+.arrow:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  color: rgb(66, 63, 63);
+}

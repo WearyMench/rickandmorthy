@@ -11,3 +11,11 @@
   display: flex;
   flex-direction: column;
 }
+
+.cardContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  margin: 10px;
+  overflow-x: scroll;
+}

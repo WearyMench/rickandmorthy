@@ -1,5 +1,8 @@
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+
 import "../styles/cards.css";
+
 import planet1 from "../assets/planetEarth.jpeg";
 import planet2 from "../assets/planetEarth2.jpeg";
 import planet3 from "../assets/planetAlien.jpeg";
@@ -13,30 +16,34 @@ import TV from "../assets/tvland.jpg";
 
 function LocationsCards({ data }) {
   return (
-    <div className="cardContainer">
+    <>
       {data.results.map((data, idx) => (
         <div key={idx} className="card">
           <div>
-            <img
-              src={
-                data.type === "Planet"
-                  ? Planet[Math.floor(Math.random() * 4)]
-                  : data.type === "Cluster"
-                  ? Cluster
-                  : data.type === "Space station"
-                  ? Station
-                  : data.type === "Microverse"
-                  ? Microuniverse
-                  : data.type === "TV"
-                  ? TV
-                  : Dreamland
-              }
-              alt="Location Image"
-              className="cardImage"
-            />
+            <Link to={`locations/${data.id}`}>
+              <img
+                src={
+                  data.type === "Planet"
+                    ? Planet[Math.floor(Math.random() * 4)]
+                    : data.type === "Cluster"
+                    ? Cluster
+                    : data.type === "Space station"
+                    ? Station
+                    : data.type === "Microverse"
+                    ? Microuniverse
+                    : data.type === "TV"
+                    ? TV
+                    : Dreamland
+                }
+                alt="Location Image"
+                className="cardImage"
+              />
+            </Link>
           </div>
           <div className="cardDescription">
-            <h3>{data.name}</h3>
+            <Link to={`locations/${data.id}`}>
+              <h3>{data.name}</h3>
+            </Link>
             <h4>Dimension:</h4>
             <p>- {data.dimension}</p>
             <h4>Type:</h4>
@@ -44,7 +51,7 @@ function LocationsCards({ data }) {
           </div>
         </div>
       ))}
-    </div>
+    </>
   );
 }
 
