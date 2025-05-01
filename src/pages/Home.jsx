@@ -13,28 +13,40 @@ function Home() {
   const [locationData, setLocationData] = useState(null);
   const [episodeData, setEpisodeData] = useState(null);
 
+  // Function to get random entries from an array
+  const getRandomEntries = (array, count) => {
+    const shuffled = [...array].sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, count);
+  };
+
   useEffect(() => {
     const cargarDatos = async () => {
+      // Fetch characters
       const response = await fetch(
         `https://rickandmortyapi.com/api/character?page=1`
       );
       const data = await response.json();
-      // Take only first 4 characters
-      setCharacterData({ ...data, results: data.results.slice(0, 4) });
+      // Get random 4 characters
+      const randomCharacters = getRandomEntries(data.results, 4);
+      setCharacterData({ ...data, results: randomCharacters });
 
+      // Fetch locations
       const response2 = await fetch(
         `https://rickandmortyapi.com/api/location?page=1`
       );
       const data2 = await response2.json();
-      // Take only first 4 locations
-      setLocationData({ ...data2, results: data2.results.slice(0, 4) });
+      // Get random 4 locations
+      const randomLocations = getRandomEntries(data2.results, 4);
+      setLocationData({ ...data2, results: randomLocations });
 
+      // Fetch episodes
       const response3 = await fetch(
         `https://rickandmortyapi.com/api/episode?page=1`
       );
       const data3 = await response3.json();
-      // Take only first 4 episodes
-      setEpisodeData({ ...data3, results: data3.results.slice(0, 4) });
+      // Get random 4 episodes
+      const randomEpisodes = getRandomEntries(data3.results, 4);
+      setEpisodeData({ ...data3, results: randomEpisodes });
     };
     cargarDatos();
   }, []);

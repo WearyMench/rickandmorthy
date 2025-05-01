@@ -20,7 +20,7 @@ function LocationsCards({ data }) {
       {data.results.map((data, idx) => (
         <div key={idx} className="locationCard">
           <div>
-            <Link to={`locations/${data.id}`} className="locationLink">
+            <Link to={`/locations/${data.id}`} className="locationLink">
               <img
                 src={
                   data.type === "Planet"
@@ -41,7 +41,7 @@ function LocationsCards({ data }) {
             </Link>
           </div>
           <div className="locationContent">
-            <Link to={`locations/${data.id}`} className="locationLink">
+            <Link to={`/locations/${data.id}`} className="locationLink">
               <h3 className="locationTitle">{data.name}</h3>
             </Link>
             <div className="locationInfo">
