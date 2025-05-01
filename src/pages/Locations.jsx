@@ -3,7 +3,7 @@ import { cargarDatos } from "../Api";
 import LocationsCards from "../components/LocationsCards";
 import Loader from "../components/Loader";
 
-import "../styles/CharactersPage.css";
+import "../styles/LocationsPage.css";
 
 function Locations() {
   const [locationData, setLocationData] = useState(null);
@@ -26,32 +26,36 @@ function Locations() {
   };
 
   return (
-    <>
-      <h1 className="charactersTitle">All Locations</h1>
-      <form className="characterForm">
+    <div className="locationsContainer">
+      <h1 className="locationsTitle">All Locations</h1>
+      <form className="locationForm">
         <input
           type="text"
           name="location"
           id="location"
-          placeholder=" Search by id"
+          placeholder="Search by location ID or name"
         />
-        <input type="submit" value="Buscar" />
+        <input type="submit" value="Search" />
       </form>
       <div className="grid">
         {locationData ? <LocationsCards data={locationData} /> : <Loader />}
       </div>
-      <div className="arrow-div">
-        <button className="arrow" onClick={nextPage}>
+      <div className="pagination">
+        <button className="arrow" onClick={nextPage} disabled={page <= 1}>
           <span className="material-symbols-outlined">arrow_back</span>
         </button>
-        <div>
-          {page} de {locationData ? locationData.info.pages : "0"}
+        <div className="pageInfo">
+          {page} of {locationData ? locationData.info.pages : "0"}
         </div>
-        <button className="arrow" onClick={prevPage}>
+        <button
+          className="arrow"
+          onClick={prevPage}
+          disabled={page >= (locationData ? locationData.info.pages : 1)}
+        >
           <span className="material-symbols-outlined">arrow_forward</span>
         </button>
       </div>
-    </>
+    </div>
   );
 }
 

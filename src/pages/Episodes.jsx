@@ -3,7 +3,7 @@ import { cargarDatos } from "../Api";
 import EpisodeCards from "../components/EpisodeCards";
 import Loader from "../components/Loader";
 
-import "../styles/CharactersPage.css";
+import "../styles/EpisodesPage.css";
 
 function Episodes() {
   const [episodeData, setEpisodeData] = useState(null);
@@ -26,32 +26,36 @@ function Episodes() {
   };
 
   return (
-    <>
-      <h1 className="charactersTitle">All Episodes</h1>
-      <form className="characterForm">
+    <div className="episodesContainer">
+      <h1 className="episodesTitle">All Episodes</h1>
+      <form className="episodeForm">
         <input
           type="text"
           name="episode"
           id="episode"
-          placeholder=" Search by id"
+          placeholder="Search by episode ID or name"
         />
-        <input type="submit" value="Buscar" />
+        <input type="submit" value="Search" />
       </form>
       <div className="grid">
         {episodeData ? <EpisodeCards data={episodeData} /> : <Loader />}
       </div>
-      <div className="arrow-div">
-        <button className="arrow" onClick={nextPage}>
+      <div className="pagination">
+        <button className="arrow" onClick={nextPage} disabled={page <= 1}>
           <span className="material-symbols-outlined">arrow_back</span>
         </button>
-        <div>
-          {page} de {episodeData ? episodeData.info.pages : "0"}
+        <div className="pageInfo">
+          {page} of {episodeData ? episodeData.info.pages : "0"}
         </div>
-        <button className="arrow" onClick={prevPage}>
+        <button
+          className="arrow"
+          onClick={prevPage}
+          disabled={page >= (episodeData ? episodeData.info.pages : 1)}
+        >
           <span className="material-symbols-outlined">arrow_forward</span>
         </button>
       </div>
-    </>
+    </div>
   );
 }
 

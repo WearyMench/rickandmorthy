@@ -1,14 +1,14 @@
-.charactersContainer {
-  min-height: calc(100vh - 60vh - 100px);
+.episodesContainer {
+  min-height: calc(100vh - 60vh - 100px); /* Account for header and footer */
   padding: 20px;
   background: linear-gradient(
     135deg,
-    rgba(0, 255, 247, 0.1) 0%,
-    rgba(47, 141, 47, 0.05) 100%
+    rgba(47, 141, 47, 0.1) 0%,
+    rgba(0, 212, 255, 0.05) 100%
   );
 }
 
-.charactersTitle {
+.episodesTitle {
   text-align: center;
   margin: 20px 0;
   color: #2f8d2f;
@@ -17,7 +17,7 @@
   font-family: serif;
 }
 
-.characterForm {
+.episodeForm {
   width: 100%;
   max-width: 600px;
   margin: 0 auto 30px;
@@ -28,7 +28,7 @@
   gap: 10px;
 }
 
-.characterForm input[type="text"] {
+.episodeForm input[type="text"] {
   width: 70%;
   padding: 12px;
   border: 2px solid #2f8d2f;
@@ -38,12 +38,12 @@
   transition: all 0.3s ease;
 }
 
-.characterForm input[type="text"]:focus {
+.episodeForm input[type="text"]:focus {
   outline: none;
   box-shadow: 0 0 10px rgba(47, 141, 47, 0.5);
 }
 
-.characterForm input[type="submit"] {
+.episodeForm input[type="submit"] {
   width: 20%;
   padding: 12px;
   background: linear-gradient(45deg, #2f8d2f, #1f6d1f);
@@ -55,7 +55,7 @@
   transition: all 0.3s ease;
 }
 
-.characterForm input[type="submit"]:hover {
+.episodeForm input[type="submit"]:hover {
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(47, 141, 47, 0.3);
 }
@@ -70,19 +70,16 @@
 
 .pagination {
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 1.5rem;
-  margin: 2rem auto;
-  width: 100%;
-  max-width: 600px;
+  justify-content: center;
+  margin: 30px 0;
+  gap: 20px;
 }
 
 .pageInfo {
   color: #2f8d2f;
-  font-weight: 600;
+  font-weight: bold;
   font-size: 1.1rem;
-  text-align: center;
 }
 
 .arrow {
@@ -97,7 +94,7 @@
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .arrow:hover {
@@ -113,17 +110,17 @@
 }
 
 @media (max-width: 768px) {
-  .charactersTitle {
+  .episodesTitle {
     font-size: 2rem;
   }
 
-  .characterForm {
+  .episodeForm {
     flex-direction: column;
     gap: 15px;
   }
 
-  .characterForm input[type="text"],
-  .characterForm input[type="submit"] {
+  .episodeForm input[type="text"],
+  .episodeForm input[type="submit"] {
     width: 100%;
   }
 
@@ -135,7 +132,7 @@
 }
 
 @media (max-width: 480px) {
-  .charactersTitle {
+  .episodesTitle {
     font-size: 1.8rem;
   }
 

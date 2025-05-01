@@ -1,0 +1,151 @@
+.characterCard {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(255, 255, 255, 0.85) 100%
+  );
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(47, 141, 47, 0.1);
+}
+
+.characterCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(47, 141, 47, 0.2);
+  border-color: rgba(47, 141, 47, 0.3);
+}
+
+.characterLink {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.characterImage {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  border-bottom: 3px solid #2f8d2f;
+  transition: transform 0.3s ease;
+}
+
+.characterCard:hover .characterImage {
+  transform: scale(1.05);
+}
+
+.characterContent {
+  padding: 1.2rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.characterTitle {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #2f8d2f;
+  text-align: center;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.characterTitle::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 2px;
+  background: #2f8d2f;
+  opacity: 0.5;
+}
+
+.characterInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: auto;
+}
+
+.characterLabel {
+  font-weight: 600;
+  color: #666;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.characterValue {
+  color: #333;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-left: 0.5rem;
+}
+
+.statusAlive {
+  color: #2f8d2f;
+  font-weight: 600;
+}
+
+.statusDead {
+  color: #ff0000;
+  font-weight: 600;
+}
+
+.statusUnknown {
+  color: #666;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .characterImage {
+    height: 240px;
+  }
+
+  .characterTitle {
+    font-size: 1.2rem;
+  }
+
+  .characterContent {
+    padding: 1rem;
+  }
+
+  .characterLabel {
+    font-size: 0.85rem;
+  }
+
+  .characterValue {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .characterImage {
+    height: 220px;
+  }
+
+  .characterTitle {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .characterContent {
+    padding: 0.8rem;
+  }
+
+  .characterInfo {
+    gap: 0.6rem;
+  }
+}

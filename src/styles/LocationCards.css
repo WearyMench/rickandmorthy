@@ -1,0 +1,136 @@
+.locationCard {
+  background: linear-gradient(135deg, #00d4ff 0%, #2f8d2f 100%);
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  color: white;
+  margin: 10px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.locationCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4);
+}
+
+.locationCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #00d4ff, #2f8d2f);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.locationCard:hover::before {
+  opacity: 1;
+}
+
+.locationImage {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  transition: transform 0.3s ease;
+}
+
+.locationCard:hover .locationImage {
+  transform: scale(1.05);
+}
+
+.locationContent {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.locationTitle {
+  font-family: serif;
+  font-size: 1.4rem;
+  margin: 0;
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  transition: color 0.3s ease;
+}
+
+.locationCard:hover .locationTitle {
+  color: #00d4ff;
+}
+
+.locationInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.locationLabel {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0;
+}
+
+.locationValue {
+  font-size: 1rem;
+  color: white;
+  margin: 0;
+  padding-left: 10px;
+  position: relative;
+}
+
+.locationValue::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #00d4ff;
+}
+
+.locationLink {
+  text-decoration: none;
+  color: inherit;
+}
+
+.locationLink:hover {
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .locationCard {
+    margin: 8px;
+  }
+
+  .locationImage {
+    height: 180px;
+  }
+
+  .locationTitle {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .locationCard {
+    margin: 5px;
+  }
+
+  .locationImage {
+    height: 160px;
+  }
+
+  .locationTitle {
+    font-size: 1.1rem;
+  }
+
+  .locationLabel {
+    font-size: 0.8rem;
+  }
+
+  .locationValue {
+    font-size: 0.9rem;
+  }
+}

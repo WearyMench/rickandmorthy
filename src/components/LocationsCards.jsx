@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-import "../styles/cards.css";
+import "../styles/LocationCards.css";
 
 import planet1 from "../assets/planetEarth.jpeg";
 import planet2 from "../assets/planetEarth2.jpeg";
@@ -18,9 +18,9 @@ function LocationsCards({ data }) {
   return (
     <>
       {data.results.map((data, idx) => (
-        <div key={idx} className="card">
+        <div key={idx} className="locationCard">
           <div>
-            <Link to={`locations/${data.id}`}>
+            <Link to={`locations/${data.id}`} className="locationLink">
               <img
                 src={
                   data.type === "Planet"
@@ -36,18 +36,20 @@ function LocationsCards({ data }) {
                     : Dreamland
                 }
                 alt="Location Image"
-                className="cardImage"
+                className="locationImage"
               />
             </Link>
           </div>
-          <div className="cardDescription">
-            <Link to={`locations/${data.id}`}>
-              <h3>{data.name}</h3>
+          <div className="locationContent">
+            <Link to={`locations/${data.id}`} className="locationLink">
+              <h3 className="locationTitle">{data.name}</h3>
             </Link>
-            <h4>Dimension:</h4>
-            <p>- {data.dimension}</p>
-            <h4>Type:</h4>
-            <p>- {data.type}</p>
+            <div className="locationInfo">
+              <h4 className="locationLabel">Dimension:</h4>
+              <p className="locationValue">{data.dimension}</p>
+              <h4 className="locationLabel">Type:</h4>
+              <p className="locationValue">{data.type}</p>
+            </div>
           </div>
         </div>
       ))}

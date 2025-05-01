@@ -19,39 +19,48 @@ function Characters() {
   };
 
   const nextPage = () => {
-    page <= 1 ? null : setPage(page - 1);
+    if (page > 1) {
+      setPage(page - 1);
+    }
   };
+
   const prevPage = () => {
-    page > characterData.info.pages ? null : setPage(page + 1);
+    if (characterData && page < characterData.info.pages) {
+      setPage(page + 1);
+    }
   };
 
   return (
-    <>
+    <div className="charactersContainer">
       <h1 className="charactersTitle">All Characters</h1>
       <form className="characterForm">
         <input
           type="text"
           name="character"
           id="character"
-          placeholder=" Search by name or id"
+          placeholder="Search by name or id"
         />
-        <input type="submit" value="Buscar" />
+        <input type="submit" value="Search" />
       </form>
       <div className="grid">
         {characterData ? <CharacterCards data={characterData} /> : <Loader />}
       </div>
-      <div className="arrow-div">
-        <button className="arrow" onClick={nextPage}>
+      <div className="pagination">
+        <button className="arrow" onClick={nextPage} disabled={page <= 1}>
           <span className="material-symbols-outlined">arrow_back</span>
         </button>
-        <div>
-          {page} de {characterData ? characterData.info.pages : "0"}
+        <div className="pageInfo">
+          {page} of {characterData ? characterData.info.pages : "0"}
         </div>
-        <button className="arrow" onClick={prevPage}>
+        <button
+          className="arrow"
+          onClick={prevPage}
+          disabled={characterData && page >= characterData.info.pages}
+        >
           <span className="material-symbols-outlined">arrow_forward</span>
         </button>
       </div>
-    </>
+    </div>
   );
 }
 
