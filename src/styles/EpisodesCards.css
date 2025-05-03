@@ -1,16 +1,17 @@
-.locationCard {
+.episodeCard {
   background: var(--card-bg);
   border-radius: var(--border-radius);
   box-shadow: var(--card-shadow);
   transition: transform 0.2s ease-in-out;
   overflow: hidden;
+  position: relative;
 }
 
-.locationCard:hover {
+.episodeCard:hover {
   transform: translateY(-4px);
 }
 
-.locationCard::before {
+.episodeCard::before {
   content: "";
   position: absolute;
   top: 0;
@@ -22,102 +23,99 @@
   transition: opacity 0.3s ease;
 }
 
-.locationCard:hover::before {
+.episodeCard:hover::before {
   opacity: 1;
 }
 
-.locationImage {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-  transition: transform 0.3s ease;
-}
-
-.locationCard:hover .locationImage {
-  transform: scale(1.05);
-}
-
-.locationContent {
+.episodeContent {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-sm);
+  padding: var(--spacing-md);
 }
 
-.locationTitle {
+.episodeTitle {
   font-size: 1.25rem;
   font-weight: 600;
   color: var(--text-primary);
   margin: 0;
+  position: relative;
+  padding-right: 24px;
 }
 
-.locationInfo {
+.episodeTitle::after {
+  content: "↗";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.episodeCard:hover .episodeTitle::after {
+  opacity: 1;
+}
+
+.episodeInfo {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-xs);
 }
 
-.locationLabel {
+.episodeLabel {
   font-weight: 500;
   color: var(--text-secondary);
   margin-right: var(--spacing-xs);
 }
 
-.locationValue {
+.episodeValue {
   color: var(--text-primary);
 }
 
-.locationValue::before {
+.episodeValue::before {
   content: "•";
   position: absolute;
   left: 0;
   color: #00d4ff;
 }
 
-.locationLink {
+.episodeLink {
   text-decoration: none;
   color: inherit;
   display: block;
-  padding: var(--spacing-md);
+  cursor: pointer;
 }
 
-.locationLink:hover {
+.episodeLink:hover {
   text-decoration: none;
 }
 
 @media (max-width: 768px) {
-  .locationCard {
+  .episodeCard {
     margin: var(--spacing-sm);
   }
 
-  .locationImage {
-    height: 180px;
-  }
-
-  .locationTitle {
+  .episodeTitle {
     font-size: 1.2rem;
   }
 }
 
 @media (max-width: 480px) {
-  .locationCard {
+  .episodeCard {
     margin: 5px;
   }
 
-  .locationImage {
-    height: 160px;
-  }
-
-  .locationTitle {
+  .episodeTitle {
     font-size: 1.1rem;
   }
 
-  .locationLabel {
+  .episodeLabel {
     font-size: 0.8rem;
   }
 
-  .locationValue {
+  .episodeValue {
     font-size: 0.9rem;
   }
 }

@@ -1,83 +1,177 @@
-.Nav {
-  width: 100%;
-  height: 15%;
-  background-color: rgba(47, 141, 47, 0.3);
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  transition: all var(--transition-normal);
+  animation: slideDown 0.5s ease-out;
+  height: 70px;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.nav--scrolled {
+  background: rgba(0, 0, 0, 0.8);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.nav__content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-sm) var(--spacing-lg);
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
+  align-items: center;
+  height: 100%;
 }
 
-.Nav .logo {
-  width: 50px;
-  margin-left: 5px;
-  filter: invert(1);
-}
-
-.NavLinks {
+.nav__logo {
   display: flex;
-  margin-right: 20px;
+  align-items: center;
+  text-decoration: none;
+  transition: transform var(--transition-normal);
+}
+
+.nav__logo:hover {
+  transform: scale(1.05);
+}
+
+.nav__logo-img {
+  height: 40px;
+  width: auto;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.nav__menu {
+  display: flex;
+  gap: var(--spacing-md);
   align-items: center;
 }
 
-.menu-links {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
+.nav__link {
+  color: white;
+  text-decoration: none;
+  font-size: var(--font-size-md);
+  font-weight: 500;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  transition: all var(--transition-normal);
 }
 
-.burger-menu {
+.nav__link:hover {
+  background: rgba(151, 206, 76, 0.2);
+  transform: translateY(-2px);
+}
+
+.nav__link-icon {
+  font-size: 1.2rem;
+  transition: transform var(--transition-normal);
+}
+
+.nav__link:hover .nav__link-icon {
+  transform: scale(1.2) rotate(5deg);
+}
+
+.nav__burger {
   display: none;
-  cursor: pointer;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 21px;
+  background: transparent;
   border: none;
-  background-color: rgba(255, 255, 255, 0);
+  cursor: pointer;
+  padding: 0;
+  z-index: 10;
 }
 
-@media screen and (max-width: 700px) {
-  .burger-menu {
-    display: block;
+.nav__burger span {
+  width: 100%;
+  height: 3px;
+  background: white;
+  border-radius: 3px;
+  transition: all var(--transition-normal);
+}
+
+.nav__burger--active span:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+
+.nav__burger--active span:nth-child(2) {
+  opacity: 0;
+}
+
+.nav__burger--active span:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+@media (max-width: 768px) {
+  .nav {
+    height: 60px;
   }
 
-  .menu-links {
-    display: none;
-  }
-
-  .active {
-    display: flex;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: rgba(0, 139, 49, 0.811);
+  .nav__menu {
+    position: fixed;
+    top: 60px;
+    right: -100%;
+    width: 70%;
+    height: calc(100vh - 60px);
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
     flex-direction: column;
+    justify-content: flex-start;
+    padding: var(--spacing-xl);
+    transition: right var(--transition-normal);
+  }
+
+  .nav__menu--active {
+    right: 0;
+  }
+
+  .nav__burger {
+    display: flex;
+  }
+
+  .nav__link {
+    font-size: var(--font-size-lg);
+    padding: var(--spacing-md);
     width: 100%;
-    height: 60vh;
-    align-items: center;
-    justify-content: center;
-    font-size: 25px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav {
+    height: 50px;
   }
 
-  /* styles.css */
-
-  /* Clase para el ícono de la hamburguesa */
-  .burger-menu div {
-    width: 35px;
-    height: 5px;
-    background-color: white;
-    margin: 5px;
-    border-radius: 5px;
-    border: 1px solid grey;
-    transition: all 0.3s ease;
+  .nav__content {
+    padding: var(--spacing-sm);
   }
 
-  /* Estilos para la animación del ícono de la hamburguesa */
-  .burger-menu.change div:nth-child(1) {
-    transform: rotate(-45deg) translate(-10px, 4px);
+  .nav__logo-img {
+    height: 30px;
   }
 
-  .burger-menu.change div:nth-child(2) {
-    opacity: 0;
-  }
-
-  .burger-menu.change div:nth-child(3) {
-    transform: rotate(45deg) translate(-12px, -7px);
+  .nav__menu {
+    top: 50px;
+    width: 100%;
+    height: calc(100vh - 50px);
   }
 }

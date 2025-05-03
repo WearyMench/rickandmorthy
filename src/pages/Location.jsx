@@ -1,48 +1,43 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import { fetchData } from "../Api";
 import Loader from "../components/Loader";
-import "../styles/location.css";
+import ErrorDisplay from "../components/ErrorDisplay";
+import "../styles/LocationPage.css";
 
 function Location() {
   const { id } = useParams();
   const [location, setLocation] = useState(null);
   const [residents, setResidents] = useState([]);
+  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showAllResidents, setShowAllResidents] = useState(false);
-  const RESIDENTS_PER_PAGE = 6;
 
   useEffect(() => {
-    const fetchLocation = async () => {
+    const getLocation = async () => {
       try {
         setLoading(true);
-        // Fetch location data
-        const response = await fetch(
-          `https://rickandmortyapi.com/api/location/${id}`
-        );
-        const data = await response.json();
+        setError(null);
+        const data = await fetchData(`location/${id}`);
         setLocation(data);
 
-        // Fetch residents data
-        if (data.residents.length > 0) {
-          const residentPromises = data.residents.map((residentUrl) =>
-            fetch(residentUrl).then((res) => res.json())
-          );
-          const residentsData = await Promise.all(residentPromises);
-          setResidents(residentsData);
-        }
+        // Fetch residents
+        const residentPromises = data.residents.map((residentUrl) => {
+          const residentId = residentUrl.split("/").pop();
+          return fetchData(`character/${residentId}`);
+        });
+        const residentData = await Promise.all(residentPromises);
+        setResidents(residentData);
       } catch (error) {
-        console.error("Error fetching location data:", error);
+        setError(error);
+        console.error("Error loading location:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchLocation();
+    getLocation();
   }, [id]);
-
-  const displayedResidents = showAllResidents
-    ? residents
-    : residents.slice(0, RESIDENTS_PER_PAGE);
 
   const toggleResidents = () => {
     setShowAllResidents(!showAllResidents);
@@ -52,82 +47,86 @@ function Location() {
     return <Loader />;
   }
 
-  if (!location) {
-    return <div>Location not found</div>;
+  if (error) {
+    return (
+      <ErrorDisplay error={error} resourceType="location" resourceId={id} />
+    );
   }
 
+  const displayedResidents = showAllResidents
+    ? residents
+    : residents.slice(0, 5);
+
   return (
-    <div className="location-container">
-      <div className="location-header">
-        <Link to="/locations" className="back-button">
-          ← Back to Locations
+    <div className="location-detail">
+      <div className="location-detail__header">
+        <Link to="/locations" className="location-detail__back-button">
+          <span className="material-symbols-outlined">arrow_back</span>
+          Back to Locations
         </Link>
+        <h1 className="location-detail__title">{location.name}</h1>
       </div>
 
-      <div className="location-content">
-        <div className="location-info">
-          <h1 className="location-name">{location.name}</h1>
-
-          <div className="info-section">
-            <h2>Location Information</h2>
-            <div className="info-grid">
-              <div className="info-item">
-                <span className="label">Type:</span>
-                <span className="value">{location.type || "Unknown"}</span>
-              </div>
-              <div className="info-item">
-                <span className="label">Dimension:</span>
-                <span className="value">{location.dimension || "Unknown"}</span>
-              </div>
+      <div className="location-detail__content">
+        <div className="location-detail__info">
+          <div className="location-detail__details">
+            <div className="location-detail__detail-item">
+              <span className="location-detail__label">Type:</span>
+              <span className="location-detail__value">{location.type}</span>
+            </div>
+            <div className="location-detail__detail-item">
+              <span className="location-detail__label">Dimension:</span>
+              <span className="location-detail__value">
+                {location.dimension}
+              </span>
+            </div>
+            <div className="location-detail__detail-item">
+              <span className="location-detail__label">Residents:</span>
+              <span className="location-detail__value">{residents.length}</span>
             </div>
           </div>
+        </div>
 
-          <div className="info-section">
-            <h2>Residents</h2>
-            {residents.length > 0 ? (
-              <>
-                <div className="residents-list">
-                  {displayedResidents.map((resident) => (
-                    <Link
-                      to={`/characters/${resident.id}`}
-                      key={resident.id}
-                      className="resident-item"
+        <div className="location-detail__residents">
+          <h2 className="location-detail__residents-title">Residents</h2>
+          <div className="location-detail__residents-list">
+            {displayedResidents.map((resident) => (
+              <Link
+                to={`/characters/${resident.id}`}
+                key={resident.id}
+                className="location-detail__resident-card"
+              >
+                <img
+                  src={resident.image}
+                  alt={resident.name}
+                  className="location-detail__resident-image"
+                />
+                <div className="location-detail__resident-info">
+                  <h3 className="location-detail__resident-name">
+                    {resident.name}
+                  </h3>
+                  <div className="location-detail__resident-details">
+                    <span
+                      className={`location-detail__resident-status location-detail__resident-status--${resident.status.toLowerCase()}`}
                     >
-                      <img
-                        src={resident.image}
-                        alt={resident.name}
-                        className="resident-image"
-                      />
-                      <div className="resident-info">
-                        <span className="resident-name">{resident.name}</span>
-                        <span
-                          className={`resident-status ${resident.status.toLowerCase()}`}
-                        >
-                          {resident.status}
-                        </span>
-                      </div>
-                    </Link>
-                  ))}
+                      {resident.status}
+                    </span>
+                    <span className="location-detail__resident-species">
+                      {resident.species}
+                    </span>
+                  </div>
                 </div>
-                {residents.length > RESIDENTS_PER_PAGE && (
-                  <button
-                    className="show-more-button"
-                    onClick={toggleResidents}
-                  >
-                    {showAllResidents
-                      ? "Show Less"
-                      : `Show More (${
-                          residents.length - RESIDENTS_PER_PAGE
-                        } more)`}
-                  </button>
-                )}
-              </>
-            ) : (
-              <p className="no-residents">
-                No residents found in this location.
-              </p>
-            )}
+              </Link>
+            ))}
           </div>
+          {residents.length > 5 && (
+            <button
+              onClick={toggleResidents}
+              className="location-detail__show-more"
+            >
+              {showAllResidents ? "Show Less" : "Show More"}
+            </button>
+          )}
         </div>
       </div>
     </div>

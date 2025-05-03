@@ -3,18 +3,21 @@ import Navigation from "./Navigation";
 
 function Header() {
   return (
-    <div className="header">
+    <header className="header">
       <Navigation />
-      <div className="text_container">
-        <h1 className="title">Rick and Morty</h1>
-        <p>
-          Rick and Morty is a show about a sociopathic scientist who drags his
-          unintelligent grandson on insanely dangerous adventures across the
-          universe. Created and executive produced by Dan Harmon (Community,
-          Channel 101) and Justin Roiland (House of Cosbys).
-        </p>
+      <div className="header__content">
+        <div className="header__section">
+          <h1 className="header__title">Rick and Morty</h1>
+          <p className="header__text">
+            Rick and Morty is an animated series that follows the misadventures
+            of cynical mad scientist Rick Sanchez and his good-hearted but
+            fretful grandson Morty Smith. Together, they split their time
+            between domestic life and interdimensional adventures that take
+            place across infinite universes.
+          </p>
+        </div>
       </div>
-    </div>
+    </header>
   );
 }
 

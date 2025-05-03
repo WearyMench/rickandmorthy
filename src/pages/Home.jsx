@@ -1,100 +1,68 @@
-import { useEffect, useState } from "react";
+import "../styles/HomePage.css";
 import { Link } from "react-router-dom";
 
-import Loader from "../components/Loader";
-import CharacterCards from "../components/CharacterCards";
-import LocationsCards from "../components/LocationsCards";
-import EpisodeCards from "../components/EpisodeCards";
-
-import "../styles/home.css";
-
 function Home() {
-  const [characterData, setCharacterData] = useState(null);
-  const [locationData, setLocationData] = useState(null);
-  const [episodeData, setEpisodeData] = useState(null);
-
-  // Function to get random entries from an array
-  const getRandomEntries = (array, count) => {
-    const shuffled = [...array].sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, count);
-  };
-
-  useEffect(() => {
-    const cargarDatos = async () => {
-      // Fetch characters
-      const response = await fetch(
-        `https://rickandmortyapi.com/api/character?page=1`
-      );
-      const data = await response.json();
-      // Get random 4 characters
-      const randomCharacters = getRandomEntries(data.results, 4);
-      setCharacterData({ ...data, results: randomCharacters });
-
-      // Fetch locations
-      const response2 = await fetch(
-        `https://rickandmortyapi.com/api/location?page=1`
-      );
-      const data2 = await response2.json();
-      // Get random 4 locations
-      const randomLocations = getRandomEntries(data2.results, 4);
-      setLocationData({ ...data2, results: randomLocations });
-
-      // Fetch episodes
-      const response3 = await fetch(
-        `https://rickandmortyapi.com/api/episode?page=1`
-      );
-      const data3 = await response3.json();
-      // Get random 4 episodes
-      const randomEpisodes = getRandomEntries(data3.results, 4);
-      setEpisodeData({ ...data3, results: randomEpisodes });
-    };
-    cargarDatos();
-  }, []);
-
   return (
-    <div className="homeContainer">
-      <section className="sectionContainer">
-        <div className="sectionHeader">
-          <Link to={"/characters"} className="sectionLink">
-            <h1 className="sectionTitle">Characters</h1>
-            <div className="sectionInfo">
-              <p>Count: {characterData ? characterData.info.count : "0"}</p>
-              <p>Pages: {characterData ? characterData.info.pages : "0"}</p>
+    <div className="home">
+      <section className="home__section">
+        <h2 className="home__title">Welcome to the Multiverse</h2>
+        <p className="home__subtitle">
+          Explore the infinite dimensions of Rick and Morty&apos;s universe.
+          Discover unique characters, bizarre locations, and mind-bending
+          episodes that will take you on an interdimensional journey.
+        </p>
+        <div className="home__grid">
+          <div className="home__card">
+            <img
+              src="https://rickandmortyapi.com/api/character/avatar/1.jpeg"
+              alt="Characters"
+              className="home__card-image"
+            />
+            <div className="home__card-content">
+              <h3 className="home__card-title">Characters</h3>
+              <p className="home__card-text">
+                Meet the diverse cast of characters from across the multiverse,
+                from the brilliant but cynical Rick to the kind-hearted Morty.
+              </p>
+              <Link to="/characters" className="home__card-link">
+                Explore Characters →
+              </Link>
             </div>
-          </Link>
-        </div>
-        <div className="grid">
-          {characterData ? <CharacterCards data={characterData} /> : <Loader />}
-        </div>
-      </section>
-
-      <section className="sectionContainer">
-        <div className="sectionHeader">
-          <Link to={"/locations"} className="sectionLink">
-            <h1 className="sectionTitle">Locations</h1>
-            <div className="sectionInfo">
-              <p>Count: {locationData ? locationData.info.count : "0"}</p>
-              <p>Pages: {locationData ? locationData.info.pages : "0"}</p>
+          </div>
+          <div className="home__card">
+            <img
+              src="https://rickandmortyapi.com/api/character/avatar/3.jpeg"
+              alt="Locations"
+              className="home__card-image"
+            />
+            <div className="home__card-content">
+              <h3 className="home__card-title">Locations</h3>
+              <p className="home__card-text">
+                Visit the most bizarre and fascinating locations across infinite
+                dimensions, from the Citadel of Ricks to the Cronenberg World.
+              </p>
+              <Link to="/locations" className="home__card-link">
+                Explore Locations →
+              </Link>
             </div>
-          </Link>
-        </div>
-        <div className="grid">
-          {locationData ? <LocationsCards data={locationData} /> : <Loader />}
-        </div>
-      </section>
-
-      <section className="sectionContainer">
-        <div className="sectionHeader">
-          <Link to={"/episodes"} className="sectionLink">
-            <h1 className="sectionTitle">Episodes</h1>
-            <div className="sectionInfo">
-              <p>Count: {episodeData ? episodeData.info.count : "0"}</p>
-              <p>Pages: {episodeData ? episodeData.info.pages : "0"}</p>
+          </div>
+          <div className="home__card">
+            <img
+              src="https://rickandmortyapi.com/api/character/avatar/2.jpeg"
+              alt="Episodes"
+              className="home__card-image"
+            />
+            <div className="home__card-content">
+              <h3 className="home__card-title">Episodes</h3>
+              <p className="home__card-text">
+                Relive the most memorable adventures and misadventures of Rick
+                and Morty, from interdimensional cable to the Meeseeks.
+              </p>
+              <Link to="/episodes" className="home__card-link">
+                Explore Episodes →
+              </Link>
             </div>
-          </Link>
-        </div>
-        <div className="grid">
-          {episodeData ? <EpisodeCards data={episodeData} /> : <Loader />}
+          </div>
         </div>
       </section>
     </div>

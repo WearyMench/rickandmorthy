@@ -1,0 +1,229 @@
+@import "./base.css";
+
+.character-detail {
+  padding: var(--spacing-md);
+  min-height: calc(100vh - 60vh);
+  background: linear-gradient(
+    135deg,
+    rgba(151, 206, 76, 0.1) 0%,
+    rgba(68, 40, 29, 0.05) 100%
+  );
+}
+
+.character-detail__header {
+  background-color: white;
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius-lg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: var(--spacing-lg);
+  position: relative;
+}
+
+.character-detail__back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: bold;
+  transition: all var(--transition-normal);
+  margin-bottom: var(--spacing-md);
+}
+
+.character-detail__back-button:hover {
+  color: var(--color-secondary);
+  transform: translateX(-4px);
+}
+
+.character-detail__title {
+  font-size: var(--font-size-xxl);
+  color: var(--color-secondary);
+  text-align: center;
+  font-family: "Get Schwifty", serif;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 0;
+}
+
+.character-detail__content {
+  background-color: white;
+  padding: var(--spacing-lg);
+  border-radius: var(--border-radius-lg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.character-detail__info {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.character-detail__image-container {
+  position: relative;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.character-detail__image {
+  width: 100%;
+  height: auto;
+  border-radius: var(--border-radius-lg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.character-detail__status {
+  position: absolute;
+  top: var(--spacing-md);
+  right: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: var(--font-size-sm);
+  color: white;
+}
+
+.character-detail__status--alive {
+  background-color: var(--color-success);
+}
+
+.character-detail__status--dead {
+  background-color: var(--color-error);
+}
+
+.character-detail__status--unknown {
+  background-color: var(--color-secondary);
+}
+
+.character-detail__details {
+  display: grid;
+  gap: var(--spacing-md);
+  padding: var(--spacing-lg);
+  background-color: rgba(151, 206, 76, 0.1);
+  border-radius: var(--border-radius-lg);
+}
+
+.character-detail__detail-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md);
+  background-color: white;
+  border-radius: var(--border-radius-md);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.character-detail__label {
+  font-weight: bold;
+  color: var(--color-primary);
+}
+
+.character-detail__value {
+  color: var(--color-text);
+}
+
+.character-detail__episodes {
+  margin-top: var(--spacing-xl);
+}
+
+.character-detail__episodes-title {
+  font-size: var(--font-size-xl);
+  color: var(--color-secondary);
+  margin-bottom: var(--spacing-lg);
+  text-align: center;
+  font-family: "Get Schwifty", serif;
+}
+
+.character-detail__episodes-list {
+  display: grid;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+.character-detail__episode-card {
+  background-color: white;
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: all var(--transition-normal);
+}
+
+.character-detail__episode-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(151, 206, 76, 0.2);
+}
+
+.character-detail__episode-name {
+  font-size: var(--font-size-lg);
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.character-detail__episode-details {
+  display: flex;
+  justify-content: space-between;
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+}
+
+.character-detail__show-more {
+  composes: button;
+  display: block;
+  margin: var(--spacing-lg) auto 0;
+  padding: var(--spacing-md) var(--spacing-xl);
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all var(--transition-normal);
+}
+
+.character-detail__show-more:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(151, 206, 76, 0.3);
+}
+
+.error-message {
+  background-color: var(--color-error);
+  color: white;
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  margin: var(--spacing-md) auto;
+  max-width: 600px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(255, 68, 68, 0.2);
+}
+
+@media (min-width: 768px) {
+  .character-detail__info {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+
+  .character-detail__image-container {
+    position: sticky;
+    top: var(--spacing-lg);
+  }
+}
+
+@media (max-width: 768px) {
+  .character-detail {
+    padding: var(--spacing-sm);
+  }
+
+  .character-detail__header {
+    padding: var(--spacing-md);
+  }
+
+  .character-detail__title {
+    font-size: var(--font-size-xl);
+  }
+
+  .character-detail__content {
+    padding: var(--spacing-md);
+  }
+
+  .character-detail__episode-details {
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+}

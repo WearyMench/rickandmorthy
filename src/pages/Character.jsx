@@ -1,46 +1,43 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
+import { fetchData } from "../Api";
 import Loader from "../components/Loader";
-import "../styles/character.css";
+import ErrorDisplay from "../components/ErrorDisplay";
+import "../styles/CharacterPage.css";
 
 function Character() {
   const { id } = useParams();
   const [character, setCharacter] = useState(null);
   const [episodes, setEpisodes] = useState([]);
+  const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showAllEpisodes, setShowAllEpisodes] = useState(false);
-  const EPISODES_PER_PAGE = 6;
 
   useEffect(() => {
-    const fetchCharacter = async () => {
+    const getCharacter = async () => {
       try {
         setLoading(true);
-        // Fetch character data
-        const response = await fetch(
-          `https://rickandmortyapi.com/api/character/${id}`
-        );
-        const data = await response.json();
+        setError(null);
+        const data = await fetchData(`character/${id}`);
         setCharacter(data);
 
-        // Fetch episodes data
-        const episodePromises = data.episode.map((episodeUrl) =>
-          fetch(episodeUrl).then((res) => res.json())
-        );
-        const episodesData = await Promise.all(episodePromises);
-        setEpisodes(episodesData);
+        // Fetch episodes
+        const episodePromises = data.episode.map((episodeUrl) => {
+          const episodeId = episodeUrl.split("/").pop();
+          return fetchData(`episode/${episodeId}`);
+        });
+        const episodeData = await Promise.all(episodePromises);
+        setEpisodes(episodeData);
       } catch (error) {
-        console.error("Error fetching character data:", error);
+        setError(error);
+        console.error("Error loading character:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchCharacter();
+    getCharacter();
   }, [id]);
-
-  const displayedEpisodes = showAllEpisodes
-    ? episodes
-    : episodes.slice(0, EPISODES_PER_PAGE);
 
   const toggleEpisodes = () => {
     setShowAllEpisodes(!showAllEpisodes);
@@ -50,89 +47,94 @@ function Character() {
     return <Loader />;
   }
 
-  if (!character) {
-    return <div>Character not found</div>;
+  if (error) {
+    return (
+      <ErrorDisplay error={error} resourceType="character" resourceId={id} />
+    );
   }
 
+  const displayedEpisodes = showAllEpisodes ? episodes : episodes.slice(0, 5);
+
   return (
-    <div className="character-container">
-      <div className="character-header">
-        <Link to="/characters" className="back-button">
-          ← Back to Characters
+    <div className="character-detail">
+      <div className="character-detail__header">
+        <Link to="/characters" className="character-detail__back-button">
+          <span className="material-symbols-outlined">arrow_back</span>
+          Back to Characters
         </Link>
+        <h1 className="character-detail__title">{character.name}</h1>
       </div>
 
-      <div className="character-content">
-        <div className="character-image-container">
-          <img
-            src={character.image}
-            alt={character.name}
-            className="character-image"
-          />
-          <div className={`status-badge ${character.status.toLowerCase()}`}>
-            {character.status}
+      <div className="character-detail__content">
+        <div className="character-detail__info">
+          <div className="character-detail__image-container">
+            <img
+              src={character.image}
+              alt={character.name}
+              className="character-detail__image"
+            />
+            <div
+              className={`character-detail__status character-detail__status--${character.status.toLowerCase()}`}
+            >
+              {character.status}
+            </div>
+          </div>
+
+          <div className="character-detail__details">
+            <div className="character-detail__detail-item">
+              <span className="character-detail__label">Species:</span>
+              <span className="character-detail__value">
+                {character.species}
+              </span>
+            </div>
+            <div className="character-detail__detail-item">
+              <span className="character-detail__label">Gender:</span>
+              <span className="character-detail__value">
+                {character.gender}
+              </span>
+            </div>
+            <div className="character-detail__detail-item">
+              <span className="character-detail__label">Origin:</span>
+              <span className="character-detail__value">
+                {character.origin.name}
+              </span>
+            </div>
+            <div className="character-detail__detail-item">
+              <span className="character-detail__label">Location:</span>
+              <span className="character-detail__value">
+                {character.location.name}
+              </span>
+            </div>
           </div>
         </div>
 
-        <div className="character-info">
-          <h1 className="character-name">{character.name}</h1>
-
-          <div className="info-section">
-            <h2>Basic Information</h2>
-            <div className="info-grid">
-              <div className="info-item">
-                <span className="label">Species:</span>
-                <span className="value">{character.species}</span>
-              </div>
-              <div className="info-item">
-                <span className="label">Gender:</span>
-                <span className="value">{character.gender}</span>
-              </div>
-              <div className="info-item">
-                <span className="label">Type:</span>
-                <span className="value">{character.type || "Unknown"}</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="info-section">
-            <h2>Location Information</h2>
-            <div className="info-grid">
-              <div className="info-item">
-                <span className="label">Origin:</span>
-                <span className="value">{character.origin.name}</span>
-              </div>
-              <div className="info-item">
-                <span className="label">Current Location:</span>
-                <span className="value">{character.location.name}</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="info-section">
-            <h2>Episodes</h2>
-            <div className="episodes-list">
-              {displayedEpisodes.map((episode) => (
-                <Link
-                  to={`/episodes/${episode.id}`}
-                  key={episode.id}
-                  className="episode-item"
-                >
-                  <span className="episode-number">
+        <div className="character-detail__episodes">
+          <h2 className="character-detail__episodes-title">Episodes</h2>
+          <div className="character-detail__episodes-list">
+            {displayedEpisodes.map((episode) => (
+              <div key={episode.id} className="character-detail__episode-card">
+                <h3 className="character-detail__episode-name">
+                  {episode.name}
+                </h3>
+                <div className="character-detail__episode-details">
+                  <span className="character-detail__episode-number">
                     Episode {episode.episode}
                   </span>
-                  <span className="episode-name">{episode.name}</span>
-                </Link>
-              ))}
-            </div>
-            {episodes.length > EPISODES_PER_PAGE && (
-              <button className="show-more-button" onClick={toggleEpisodes}>
-                {showAllEpisodes
-                  ? "Show Less"
-                  : `Show More (${episodes.length - EPISODES_PER_PAGE} more)`}
-              </button>
-            )}
+                  <span className="character-detail__episode-date">
+                    {episode.air_date}
+                  </span>
+                </div>
+              </div>
+            ))}
           </div>
+          {episodes.length > 5 && (
+            <button
+              onClick={toggleEpisodes}
+              className="character-detail__show-more"
+            >
+              {showAllEpisodes ? "Show Less" : "Show More"}
+            </button>
+          )}
         </div>
       </div>
     </div>
